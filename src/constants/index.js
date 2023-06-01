@@ -1,0 +1,9 @@
+export const content = {
+
+    workHeading1:"We make Arborist Reports!",
+    workHeading2:"Arborist Reports Include:",
+    workMessage1:"An Arborist Report is a document written by a certified arborist about all aspects of a tree, including its species, health condition, pending safety concerns, and recommendations on how to mitigate problems. These reports are necessary for tree removal permits with municipalities or assurance on whether a tree on your property is a liability. They are extra valuable in the hands of current or prospective homeowners and contractors.",
+    leaderIntro1:"Nicholas has been a certified arborist since February 2016. He began his career in San Diego, where he specialized in plant healthcare and general tree care. In 2019 he continued his career in the San Francisco Bay Area as a tree service sales professional. Ever the entrepreneur, he conceived the idea for ArborHawk during the lull of the pandemic, and put his idea into motion in early 2022. He holds a Bachelor of Marketing at Arizona State University and holds the ISA arborist designation #WE-11802A.",
+    leaderIntro2:"ArborHawk was founded on the principles of making tree care easy and accessible to all. The company began in 2022 in San Francisco, Californian with a desire to solve the complex problems of tree care. Trees are one of our planet’s most crucial life forms on which many things depend, and they require special tech to monitor, maintain, and protect them. ArborHawk’s vision is to automate and simplify important procedures in the arboriculture industry through technology and innovation.",
+    visitDetail:"Want to schedule a visit with our ISA certified arborist? Please fill out the info below and the arborist will respond with a quote. As of right now, ArborHawk can only provide reports for clients in the San Francisco Bay Area.",
+}
