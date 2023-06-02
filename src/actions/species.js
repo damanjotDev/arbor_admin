@@ -1,4 +1,4 @@
-import { createSpecies, deleteSpecies, editSpecies, fetchSpecies } from "../API";
+import { approveOtherSpecies, createSpecies, deleteSpecies, editSpecies, fetchOtherSpecies, fetchSpecies } from "../API";
 import { ACTION_TYPES } from "../constants/actionTypes";
 import { NotificationManager } from 'react-notifications';
 
@@ -26,7 +26,8 @@ export const addSpecies =(res, navigate, location)=>async(dispatch, getState)=>{
     }
     catch(err){
         dispatch({type:ACTION_TYPES.ADD_SPECIES_FAILED})
-        NotificationManager.error(err?.response?.data?.msg ? err.response.data.msg : "Something went wrong")
+        console.log(err)
+        NotificationManager.error(err?.response?.data?.error ? err.response.data.error : "Something went wrong")
     }
 }
 
@@ -68,6 +69,33 @@ export const deleteSpeciesData =(id) =>async(dispatch, getState)=>{
     }
     catch(err){
         dispatch({type:ACTION_TYPES.DELETE_SPECIES_FAILED})
+        NotificationManager.error(err.message)
+    }
+}
+
+
+export const getOtherSpecies =()=>async(dispatch, getState)=>{
+    try{
+        dispatch({type: ACTION_TYPES.FETCH_OTHER_SPECIES_REQUEST})
+        const {data} = await fetchOtherSpecies()
+        dispatch({type: ACTION_TYPES.FETCH_OTHER_SPECIES_SUCCESS, payload: data.data})
+    }
+    catch(err){
+        dispatch({type:ACTION_TYPES.FETCH_OTHER_SPECIES_FAILED})
+        NotificationManager.error(err.response ? err.response.data.msg : err.message)
+    }
+}
+
+export const otherSpeciesStatus =(id,res) =>async(dispatch, getState)=>{
+    try{
+        dispatch({type: ACTION_TYPES.DELETE_OTHER_SPECIES_REQUEST})
+        const {data} = await approveOtherSpecies(id,res)
+        dispatch({type: ACTION_TYPES.DELETE_OTHER_SPECIES_SUCCESS})
+        NotificationManager.success(data.data)
+        dispatch(getOtherSpecies())
+    }
+    catch(err){
+        dispatch({type:ACTION_TYPES.DELETE_OTHER_SPECIES_FAILED})
         NotificationManager.error(err.message)
     }
 }

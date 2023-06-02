@@ -33,8 +33,7 @@ const EditArbor = () => {
       company:arbor?.company?arbor?.company?._id:""
     })
     const [error,setError] = useState(null);
-    const [expYear, setExpYear]= useState("");
-
+    const [expYear, setExpYear]= useState("test");
     useEffect(()=>{
         const data = new Date(arbor?.experience)
         countExperience(data)
@@ -45,6 +44,7 @@ const EditArbor = () => {
     }
 
     const countExperience =(v)=>{
+      debugger
         const today = new Date();
         const getCurrentMonth = today.getMonth()+1
         const getCurrentYear = today.getFullYear()
@@ -67,6 +67,7 @@ const EditArbor = () => {
         }else{
           months = 0
         }
+        // console.log("ls2>+++++++++++++++++++++++++",`${exp} year ${months} months`)
         setArborData({...arborData, experience: `${exp} year ${months} months`})
         setExpYear(`${exp} year ${months} months`)
       }
@@ -123,7 +124,7 @@ const EditArbor = () => {
       >
       <CardContent>
       <Box className={classes.profileText}>
-        <Typography variant="h4" fontFamily="CormorantBoldItalic" style={{marginTop:50}}>Add Arbor</Typography>
+        <Typography variant="h4" fontFamily="CormorantBoldItalic" style={{marginTop:50}}>Edit Arbor</Typography>
       </Box>
         <Grid container spacing={3} style={{paddingTop:40, paddingBottom:80}}>
 
@@ -212,12 +213,12 @@ const EditArbor = () => {
       </Grid>
 
       <Grid item xs={12} sm={12} md={12} lg={12} className={classes.grid} >
-        <DatePicker
+       <DatePicker
           name="experience"         
           label="experience"
           variant="outlined"
           onChange={(e)=> handleDatePicker(e)}
-          value={arborData.experience}       
+          value={expYear}       
         />
       </Grid>
 

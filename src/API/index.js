@@ -70,5 +70,8 @@ export const fetchSpecies =()=>API.get("admin/species")
 export const editSpecies =(speciesId, data)=>API.put(`admin/species/${speciesId}`, data)
 export const deleteSpecies =(healthId)=>API.delete(`admin/species/${healthId}`)
 
+//---------------------------------------------------------------------------------------------------other species
+export const fetchOtherSpecies =()=>API.get("admin/otherspecies")
+export const approveOtherSpecies =(id,data)=>API.post(`admin/otherspecies/${id}`,data)
 
 

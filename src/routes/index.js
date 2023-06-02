@@ -17,6 +17,7 @@ import EditRecommendation from '../components/admin/recommendation/editRecommend
 import Species from '../components/admin/species';
 import AddSpecies from '../components/admin/species/addSpecies';
 import EditSpecies from '../components/admin/species/editSpecies';
+import OtherSpecies from '../components/admin/otherSpecies';
 const AppRoute = () => {
 
   const { isLoggedIn } = useSelector(({adminLogin})=>adminLogin)
@@ -57,6 +58,7 @@ const AppRoute = () => {
         <Route path ="/species" element={<Species/>}/>
         <Route path ="/addSpecies" element={<AddSpecies/>}/>
         <Route path ="/editSpecies" element={<EditSpecies/>}/>
+        <Route path ="/otherspecies" element={<OtherSpecies/>}/>
         </>:
         <>
          <Route path = "/" element={<Login/>}/>

@@ -1,6 +1,8 @@
 import React,{useState, useEffect} from 'react'
 import {TableCell,TableBody, TableContainer, Table, TableHead, TableRow, Box, IconButton, Dialog,AppBar,Grid, Toolbar, DialogTitle, DialogContent,  Menu, MenuItem,Button, Typography} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import  CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +16,7 @@ import { deleteCompany, deleteHealthRate } from '../../API';
 import { deleteArborData, setArbor } from '../../actions/arbor';
 import { deleteHealthRateData, setHealthRate } from '../../actions/healthRating';
 import { deleteRecommendationData, setRecommendation } from '../../actions/recommendation';
-import { deleteSpeciesData, setSpecies } from '../../actions/species';
+import { deleteSpeciesData, otherSpeciesStatus, setSpecies } from '../../actions/species';
 
 const CommonTable = ({lable, tableCols, tableRows, formik, setActiveStep, component, setEditClick,setEditTreeClick, setShow}) => {
   const dispatch = useDispatch()
@@ -62,6 +64,9 @@ const CommonTable = ({lable, tableCols, tableRows, formik, setActiveStep, compon
         dispatch(setSpecies(row))
         navigate("/editSpecies")
         break;
+        case "otherspecies":
+          dispatch(otherSpeciesStatus(row._id,{status:true}))
+          break;
       // case "trees":
       //   dispatch(setTree(row))
       //   setEditTreeClick(true)
@@ -178,7 +183,24 @@ const CommonTable = ({lable, tableCols, tableRows, formik, setActiveStep, compon
       handleCloses()
       break;
 
-
+      case "otherspecies":
+        Swal.fire({
+          title: 'Are you sure?',
+          text: 'It will be permanently declined',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33', 
+          confirmButtonText: 'Yes!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+          dispatch(otherSpeciesStatus(id,{status:false}))
+          Swal.fire('OtherSpecies declined successfully', '', 'success');  
+          } else{
+          Swal.fire('You cancelled the request', '', 'error') }
+      })      
+      handleCloses()
+      break;
         default:
           return; 
       }
@@ -435,6 +457,54 @@ const CommonTable = ({lable, tableCols, tableRows, formik, setActiveStep, compon
             </TableRow>
                 ):null
               }
+               {
+                lable === "otherspecies" && 
+                tableRows?.length ? tableRows?.map((row, index)=> 
+                <TableRow>
+                <TableCell>{row?.commonName?row?.commonName:"Common name not exist"}</TableCell>
+                <TableCell>{row?.scientificName?row?.scientificName:"Scientific name not exist"}</TableCell>
+                <TableCell>
+                <Box>
+                  <IconButton
+                    aria-label="More"
+                    aria-owns={open ? "long-menu" : undefined}
+                    aria-haspopup="true"
+                    onClick={(event)=>handleClick(event, row)}
+                    style={{backgroundColor:"gray", color:"white", borderRadius:"4px", padding:7}}
+                  >
+                    <MoreVertIcon />
+                  </IconButton>
+                  <Menu
+                    open={Boolean(anchorEl && selectedItemRow === row)}
+                    id="long-menu"
+                    anchorEl={anchorEl}
+                    onClose={handleCloses}
+                    >
+                      <MenuItem onClick={handleClose} >
+                      <IconButton onClick={()=>handleEdit(row)}>
+                      <ThumbUpIcon /><Typography style={{marginLeft:5}}>Edit</Typography>
+                      </IconButton>
+                      </MenuItem>
+                      <MenuItem onClick={handleClose} >
+                      <IconButton onClick={()=>handleDelete(row._id)}>
+                      <ThumbDownIcon /><Typography style={{marginLeft:5}}>Delete</Typography>
+                      </IconButton>
+                      </MenuItem>                    
+                  </Menu>
+              </Box>
+                {/* <IconButton aria-label="Edit" onClick={()=>handleEdit(row)}>
+                <EditIcon />
+                </IconButton> */}
+                </TableCell>
+                {/* <TableCell>
+                <IconButton aria-label="Delete" onClick={()=>handleDelete(row._id)}> 
+                <DeleteIcon />
+                  </IconButton>
+                </TableCell> */}
+            </TableRow>
+                ):null
+              }
+
                 </TableBody>
             </Table>
             </TableContainer>

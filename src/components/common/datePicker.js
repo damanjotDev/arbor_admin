@@ -21,7 +21,7 @@ function DatePicker({name="", onChange=()=>{}, value}) {
         }}
         peekNextMonth
         name={name}
-        value={startDate}
+        value={value}
         showMonthDropdown
         className={classes.dateInput}  
         showYearDropdown
