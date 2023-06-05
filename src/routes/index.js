@@ -18,6 +18,7 @@ import Species from '../components/admin/species';
 import AddSpecies from '../components/admin/species/addSpecies';
 import EditSpecies from '../components/admin/species/editSpecies';
 import OtherSpecies from '../components/admin/otherSpecies';
+import { Plans } from '../components/admin/plans';
 const AppRoute = () => {
 
   const { isLoggedIn } = useSelector(({adminLogin})=>adminLogin)
@@ -59,6 +60,7 @@ const AppRoute = () => {
         <Route path ="/addSpecies" element={<AddSpecies/>}/>
         <Route path ="/editSpecies" element={<EditSpecies/>}/>
         <Route path ="/otherspecies" element={<OtherSpecies/>}/>
+        <Route path ="/plans" element={<Plans/>}/>
         </>:
         <>
          <Route path = "/" element={<Login/>}/>

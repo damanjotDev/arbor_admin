@@ -5,6 +5,7 @@ import { company } from "./company";
 import { healthRate } from "./healthRating";
 import { recommendation } from "./recommendation";
 import { species } from "./species";
+import {plans} from "./plans"
 
 
-export default combineReducers({ adminLogin,arbor,company,healthRate,recommendation,species });
+export default combineReducers({ adminLogin,arbor,company,healthRate,recommendation,species,plans });

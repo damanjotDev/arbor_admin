@@ -74,4 +74,6 @@ export const deleteSpecies =(healthId)=>API.delete(`admin/species/${healthId}`)
 export const fetchOtherSpecies =()=>API.get("admin/otherspecies")
 export const approveOtherSpecies =(id,data)=>API.post(`admin/otherspecies/${id}`,data)
 
+//-------------------------------------------------------------------------------------------------------SubscriptionPlans
 
+export const fetchSubsCriptionPlans = (productId)=>API.get(`admin/fetchPlans`)

@@ -64,8 +64,11 @@ const CommonTable = ({lable, tableCols, tableRows, formik, setActiveStep, compon
         dispatch(setSpecies(row))
         navigate("/editSpecies")
         break;
-        case "otherspecies":
+      case "otherspecies":
           dispatch(otherSpeciesStatus(row._id,{status:true}))
+          break;
+      case "plans":
+           alert("working!")
           break;
       // case "trees":
       //   dispatch(setTree(row))
@@ -482,12 +485,12 @@ const CommonTable = ({lable, tableCols, tableRows, formik, setActiveStep, compon
                     >
                       <MenuItem onClick={handleClose} >
                       <IconButton onClick={()=>handleEdit(row)}>
-                      <ThumbUpIcon /><Typography style={{marginLeft:5}}>Edit</Typography>
+                      <ThumbUpIcon /><Typography style={{marginLeft:5}}>Approve</Typography>
                       </IconButton>
                       </MenuItem>
                       <MenuItem onClick={handleClose} >
                       <IconButton onClick={()=>handleDelete(row._id)}>
-                      <ThumbDownIcon /><Typography style={{marginLeft:5}}>Delete</Typography>
+                      <ThumbDownIcon /><Typography style={{marginLeft:5}}>Decline</Typography>
                       </IconButton>
                       </MenuItem>                    
                   </Menu>
@@ -504,7 +507,54 @@ const CommonTable = ({lable, tableCols, tableRows, formik, setActiveStep, compon
             </TableRow>
                 ):null
               }
-
+              
+              {
+                lable === "plans" && 
+                tableRows?.length ? tableRows?.map((row, index)=> 
+                <TableRow>
+                <TableCell>{row?.productDetails?.name}</TableCell>
+                <TableCell>{`${row?.productDetails?.price?.currency==="usd"?"$":"₹"}${row?.productDetails?.price?.unit_amount/100}.00`}</TableCell>
+                <TableCell>
+                <Box>
+                  <IconButton
+                    aria-label="More"
+                    aria-owns={open ? "long-menu" : undefined}
+                    aria-haspopup="true"
+                    onClick={(event)=>handleClick(event, row)}
+                    style={{backgroundColor:"gray", color:"white", borderRadius:"4px", padding:7}}
+                  >
+                    <MoreVertIcon />
+                  </IconButton>
+                  <Menu
+                    open={Boolean(anchorEl && selectedItemRow === row)}
+                    id="long-menu"
+                    anchorEl={anchorEl}
+                    onClose={handleCloses}
+                    >
+                      <MenuItem onClick={handleClose} >
+                      <IconButton onClick={()=>handleEdit(row)}>
+                      <EditIcon /><Typography style={{marginLeft:5}}>Edit</Typography>
+                      </IconButton>
+                      </MenuItem>
+                      <MenuItem onClick={handleClose} >
+                      <IconButton onClick={()=>handleDelete(row._id)}>
+                      <DeleteIcon /><Typography style={{marginLeft:5}}>Delete</Typography>
+                      </IconButton>
+                      </MenuItem>                    
+                  </Menu>
+              </Box>
+                {/* <IconButton aria-label="Edit" onClick={()=>handleEdit(row)}>
+                <EditIcon />
+                </IconButton> */}
+                </TableCell>
+                {/* <TableCell>
+                <IconButton aria-label="Delete" onClick={()=>handleDelete(row._id)}> 
+                <DeleteIcon />
+                  </IconButton>
+                </TableCell> */}
+            </TableRow>
+                ):null
+              }
                 </TableBody>
             </Table>
             </TableContainer>

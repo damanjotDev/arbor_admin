@@ -1,1 +1,1 @@
-export default ['adminLogin', 'arbor','company','healthRate', 'recommendation','species']
+export default ['adminLogin', 'arbor','company','healthRate', 'recommendation','species','plans']
